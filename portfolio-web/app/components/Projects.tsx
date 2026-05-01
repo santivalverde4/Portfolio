@@ -61,18 +61,10 @@ export function Projects() {
 
               <div className="mt-6 flex gap-3">
                 <a
-                  href={project.demoUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700"
-                >
-                  {t.projects.viewDemo}
-                </a>
-                <a
                   href={project.repoUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex rounded-lg border border-line px-4 py-2 text-sm font-medium text-slate-800 transition hover:bg-slate-100"
+                  className="inline-flex rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700"
                 >
                   {t.projects.viewRepo}
                 </a>

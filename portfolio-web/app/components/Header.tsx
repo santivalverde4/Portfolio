@@ -21,7 +21,7 @@ export function Header() {
           <a className="hover:text-slate-900" href="#proyectos">
             {t.nav.projects}
           </a>
-          <a className="hover:text-slate-900" href="#cv">
+          <a className="hover:text-slate-900" href={profile.cvUrl} target="_blank" rel="noreferrer">
             {t.nav.cv}
           </a>
           <a className="hover:text-slate-900" href="#contacto">

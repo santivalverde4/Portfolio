@@ -13,7 +13,7 @@ export const metadata = {
 };
 
 export default function Home() {
-  const projectCount = defaultData.projects.length;
+  const projectCount = 15;
   const technologyCount = defaultData.techGroups.reduce(
     (accumulator, group) => accumulator + group.items.length,
     0,
