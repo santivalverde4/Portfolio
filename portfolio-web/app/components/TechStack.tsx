@@ -1,15 +1,22 @@
+"use client";
+
 import { TechGroup } from "@/app/types/portfolio";
+import { useLanguage } from "@/app/context/LanguageProvider";
+import { translations } from "@/app/data/translations";
 
 interface TechStackProps {
   groups: TechGroup[];
 }
 
 export function TechStack({ groups }: TechStackProps) {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   return (
     <section id="tecnologias" className="space-y-5">
       <div>
-        <h2 className="text-2xl font-semibold tracking-tight">Tecnologías</h2>
-        <p className="mt-1 text-muted">Stack con el que construyo productos web de punta a punta.</p>
+        <h2 className="text-2xl font-semibold tracking-tight">{t.techStack.title}</h2>
+        <p className="mt-1 text-muted">{t.techStack.subtitle}</p>
       </div>
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-5">
         {groups.map((group) => (

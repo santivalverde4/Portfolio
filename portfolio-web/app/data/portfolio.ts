@@ -8,7 +8,7 @@ export const profile: Profile = {
     "Construyo aplicaciones web y móviles escalables con enfoque en accesibilidad, performance y experiencia de usuario. Experiencia en desarrollo full-stack, ETL y arquitectura de bases de datos.",
   availability: "Disponible para prácticas a tiempo parcial.",
   email: "s.valverde04@gmail.com",
-  cvUrl: "https://drive.google.com/",
+  cvUrl: "https://drive.google.com/file/d/13d18HViCOy-AwfCbNqo-Bf8WBewxcWcd/view?usp=sharing",
   socialLinks: [
     {
       label: "LinkedIn",

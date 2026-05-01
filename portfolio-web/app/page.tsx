@@ -3,6 +3,7 @@ import { Header } from "@/app/components/Header";
 import { Hero } from "@/app/components/Hero";
 import { TechStack } from "@/app/components/TechStack";
 import { Projects } from "@/app/components/Projects";
+import { Footer } from "@/app/components/Footer";
 
 export const metadata = {
   title: `${profile.name} - Portfolio`,
@@ -26,38 +27,7 @@ export default function Home() {
         <Projects projects={projects} />
       </main>
 
-      <footer id="contacto" className="border-t border-line pt-8">
-        <div className="grid gap-8 md:grid-cols-2">
-          <div>
-            <h3 className="text-lg font-semibold">Contacto</h3>
-            <p className="mt-2 text-muted">
-              ¿Interesado en colaborar? Escribeme un email o conecta conmigo en mis redes.
-            </p>
-          </div>
-          <div className="space-y-3">
-            <a
-              href={`mailto:${profile.email}`}
-              className="block text-sm font-medium text-slate-700 transition hover:text-slate-900"
-            >
-              ✉️ {profile.email}
-            </a>
-            {profile.socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                className="block text-sm font-medium text-slate-700 transition hover:text-slate-900"
-              >
-                → {link.label}
-              </a>
-            ))}
-          </div>
-        </div>
-        <div className="mt-8 border-t border-line pt-8 text-center text-sm text-muted">
-          <p>© 2025 {profile.name}. Construido con Next.js + TypeScript.</p>
-        </div>
-      </footer>
+      <Footer profile={profile} />
     </div>
   );
 }

@@ -1,15 +1,22 @@
+"use client";
+
 import { Project } from "@/app/types/portfolio";
+import { useLanguage } from "@/app/context/LanguageProvider";
+import { translations } from "@/app/data/translations";
 
 interface ProjectsProps {
   projects: Project[];
 }
 
 export function Projects({ projects }: ProjectsProps) {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   return (
     <section id="proyectos" className="space-y-8">
       <div>
-        <h2 className="text-2xl font-semibold tracking-tight">Proyectos destacados</h2>
-        <p className="mt-1 text-muted">Trabajos recientes que demuestran mis habilidades y experiencia.</p>
+        <h2 className="text-2xl font-semibold tracking-tight">{t.projects.title}</h2>
+        <p className="mt-1 text-muted">{t.projects.subtitle}</p>
       </div>
 
       <div className="grid gap-6">
@@ -28,7 +35,7 @@ export function Projects({ projects }: ProjectsProps) {
 
               <div className="mt-6 space-y-4">
                 <div>
-                  <p className="text-sm font-medium text-slate-700">Stack</p>
+                  <p className="text-sm font-medium text-slate-700">{t.projects.stack}</p>
                   <ul className="mt-2 flex flex-wrap gap-2">
                     {project.stack.map((tech) => (
                       <li
@@ -42,7 +49,7 @@ export function Projects({ projects }: ProjectsProps) {
                 </div>
 
                 <div>
-                  <p className="text-sm font-medium text-slate-700">Highlights</p>
+                  <p className="text-sm font-medium text-slate-700">{t.projects.highlights}</p>
                   <ul className="mt-2 space-y-2">
                     {project.highlights.map((highlight, i) => (
                       <li key={i} className="flex gap-3 text-sm text-slate-700">
@@ -61,7 +68,7 @@ export function Projects({ projects }: ProjectsProps) {
                   rel="noreferrer"
                   className="inline-flex rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700"
                 >
-                  Ver Demo
+                  {t.projects.viewDemo}
                 </a>
                 <a
                   href={project.repoUrl}
@@ -69,7 +76,7 @@ export function Projects({ projects }: ProjectsProps) {
                   rel="noreferrer"
                   className="inline-flex rounded-lg border border-line px-4 py-2 text-sm font-medium text-slate-800 transition hover:bg-slate-100"
                 >
-                  Repositorio
+                  {t.projects.viewRepo}
                 </a>
               </div>
             </div>
