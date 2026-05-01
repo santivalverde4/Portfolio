@@ -1,16 +1,14 @@
 "use client";
 
-import { TechGroup } from "@/app/types/portfolio";
 import { useLanguage } from "@/app/context/LanguageProvider";
 import { translations } from "@/app/data/translations";
+import { portfolioData } from "@/app/data/portfolio-i18n";
 
-interface TechStackProps {
-  groups: TechGroup[];
-}
-
-export function TechStack({ groups }: TechStackProps) {
+export function TechStack() {
   const { language } = useLanguage();
   const t = translations[language];
+  const data = portfolioData[language];
+  const groups = data.techGroups;
 
   return (
     <section id="tecnologias" className="space-y-5">

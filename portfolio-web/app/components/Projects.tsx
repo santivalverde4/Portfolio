@@ -1,16 +1,14 @@
 "use client";
 
-import { Project } from "@/app/types/portfolio";
 import { useLanguage } from "@/app/context/LanguageProvider";
 import { translations } from "@/app/data/translations";
+import { portfolioData } from "@/app/data/portfolio-i18n";
 
-interface ProjectsProps {
-  projects: Project[];
-}
-
-export function Projects({ projects }: ProjectsProps) {
+export function Projects() {
   const { language } = useLanguage();
   const t = translations[language];
+  const data = portfolioData[language];
+  const projects = data.projects;
 
   return (
     <section id="proyectos" className="space-y-8">

@@ -1,16 +1,14 @@
 "use client";
 
-import { Profile } from "@/app/types/portfolio";
 import { useLanguage } from "@/app/context/LanguageProvider";
 import { translations } from "@/app/data/translations";
+import { portfolioData } from "@/app/data/portfolio-i18n";
 
-interface FooterProps {
-  profile: Profile;
-}
-
-export function Footer({ profile }: FooterProps) {
+export function Footer() {
   const { language } = useLanguage();
   const t = translations[language];
+  const data = portfolioData[language];
+  const profile = data.profile;
 
   return (
     <footer id="contacto" className="border-t border-line pt-8">

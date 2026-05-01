@@ -1,18 +1,19 @@
 "use client";
 
-import { Profile } from "@/app/types/portfolio";
 import { useLanguage } from "@/app/context/LanguageProvider";
 import { translations } from "@/app/data/translations";
+import { portfolioData } from "@/app/data/portfolio-i18n";
 
 interface HeroProps {
-  profile: Profile;
   projectCount: number;
   technologyCount: number;
 }
 
-export function Hero({ profile, projectCount, technologyCount }: HeroProps) {
+export function Hero({ projectCount, technologyCount }: HeroProps) {
   const { language } = useLanguage();
   const t = translations[language];
+  const data = portfolioData[language];
+  const profile = data.profile;
 
   return (
     <section className="rounded-3xl border border-line bg-surface p-8 shadow-sm md:p-10">

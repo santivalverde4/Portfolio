@@ -1,16 +1,14 @@
 "use client";
 
-import { Profile } from "@/app/types/portfolio";
 import { useLanguage } from "@/app/context/LanguageProvider";
 import { translations } from "@/app/data/translations";
+import { portfolioData } from "@/app/data/portfolio-i18n";
 
-interface HeaderProps {
-  profile: Profile;
-}
-
-export function Header({ profile }: HeaderProps) {
+export function Header() {
   const { language, setLanguage } = useLanguage();
   const t = translations[language];
+  const data = portfolioData[language];
+  const profile = data.profile;
 
   return (
     <header className="sticky top-4 z-10 mb-8 rounded-2xl border border-line/70 bg-surface/90 px-5 py-3 shadow-sm backdrop-blur">
