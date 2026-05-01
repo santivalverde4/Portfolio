@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { Language } from "@/app/data/translations";
 
 interface LanguageContextType {
@@ -11,22 +11,28 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>("en");
+  const [language, setLanguageState] = useState<Language>("es");
 
   useEffect(() => {
-    // Obtener idioma del localStorage o usar "en" por defecto
     const savedLanguage = localStorage.getItem("language") as Language | null;
     if (savedLanguage) {
-      setLanguageState(savedLanguage);
+      const timeoutId = window.setTimeout(() => {
+        setLanguageState(savedLanguage);
+      }, 0);
+
+      return () => window.clearTimeout(timeoutId);
     }
   }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem("language", lang);
   };
 
-  // Siempre proporcionar el contexto (evita hydration mismatch)
   return (
     <LanguageContext.Provider value={{ language, setLanguage }}>
       {children}
@@ -39,5 +45,6 @@ export function useLanguage() {
   if (!context) {
     throw new Error("useLanguage must be used within a LanguageProvider");
   }
+
   return context;
 }
