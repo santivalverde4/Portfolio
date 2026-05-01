@@ -2,16 +2,16 @@
 
 Portafolio web moderno y professional construido con **Next.js 16**, **TypeScript**, y **Tailwind CSS v4**.
 
-## 🚀 Características
+##  Características
 
-- ✨ **Diseño limpio y profesional** - Interfaz moderna con Tailwind CSS
-- 📱 **100% Responsivo** - Optimizado para móvil, tablet y desktop
-- ⚡ **Alto desempeño** - Next.js 16 con optimizaciones de rendering
-- 🎯 **Componentes reutilizables** - Arquitectura escalable y mantenible
-- 🔤 **TypeScript** - Type-safe con tipos explícitos
-- 🌍 **SEO ready** - Metadata dinámica basada en datos
+-  **Diseño limpio y profesional** - Interfaz moderna con Tailwind CSS
+-  **100% Responsivo** - Optimizado para móvil, tablet y desktop
+-  **Alto desempeño** - Next.js 16 con optimizaciones de rendering
+-  **Componentes reutilizables** - Arquitectura escalable y mantenible
+-  **TypeScript** - Type-safe con tipos explícitos
+-  **SEO ready** - Metadata dinámica basada en datos
 
-## 📁 Estructura del Proyecto
+##  Estructura del Proyecto
 
 ```
 app/
@@ -33,7 +33,7 @@ app/
 public/                 # Archivos estáticos
 ```
 
-## 🛠️ Instalación
+##  Instalación
 
 ```bash
 # Clonar repositorio
@@ -49,7 +49,7 @@ npm run dev
 
 Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-## 📝 Personalizacion
+## Personalizacion
 
 Todos los datos están centralizados en `app/data/portfolio.ts`:
 
@@ -72,7 +72,7 @@ export const projects: Project[] = [
 ];
 ```
 
-## 🎨 Estilos
+##  Estilos
 
 El proyecto usa **Tailwind CSS v4** con configuración personalizada:
 
@@ -82,7 +82,7 @@ El proyecto usa **Tailwind CSS v4** con configuración personalizada:
 
 Edita los estilos globales en `app/globals.css`.
 
-## 🚀 Build & Deploy
+##  Build & Deploy
 
 ### Build para producción
 ```bash
@@ -99,7 +99,7 @@ npm start
 
 Cada push a `main` publica automáticamente los cambios.
 
-## 📦 Scripts disponibles
+##  Scripts disponibles
 
 | Script | Descripción |
 |--------|------------|
@@ -108,7 +108,7 @@ Cada push a `main` publica automáticamente los cambios.
 | `npm start` | Inicia servidor de producción |
 | `npm run lint` | Ejecuta ESLint |
 
-## 🔧 Stack Tecnológico
+##  Stack Tecnológico
 
 - **Next.js 16.2.0** - React framework
 - **React 19.2.4** - UI library
@@ -117,11 +117,11 @@ Cada push a `main` publica automáticamente los cambios.
 - **ESLint 9** - Linting
 - **PostCSS 4** - CSS processing
 
-## 📄 Licencia
+##  Licencia
 
 Proyecto personal. Siéntete libre de usar como referencia.
 
-## ✉️ Contacto
+##  Contacto
 
 - Email: s.valverde04@gmail.com
 - GitHub: [github.com/santivalverde4](https://github.com/santivalverde4)
