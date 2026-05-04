@@ -20,7 +20,7 @@ export default function Home() {
   );
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-6 py-8 text-slate-900 md:px-10 lg:px-14">
+    <div className="mx-auto w-full max-w-6xl px-6 py-8 text-foreground md:px-10 lg:px-14">
       <Header />
 
       <main className="space-y-14 pb-14">

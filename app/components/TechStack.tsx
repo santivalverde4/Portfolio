@@ -22,12 +22,12 @@ export function TechStack() {
             key={group.area}
             className="rounded-2xl border border-line bg-surface p-5 shadow-sm"
           >
-            <h3 className="text-base font-semibold text-slate-900">{group.area}</h3>
+            <h3 className="text-base font-semibold text-foreground">{group.area}</h3>
             <ul className="mt-4 flex flex-wrap gap-2">
               {group.items.map((technology) => (
                 <li
                   key={technology}
-                  className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700"
+                  className="rounded-full border border-line/70 bg-background/60 px-3 py-1 text-xs font-medium text-muted"
                 >
                   {technology}
                 </li>

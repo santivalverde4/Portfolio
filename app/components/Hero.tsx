@@ -22,15 +22,15 @@ export function Hero({ projectCount, technologyCount }: HeroProps) {
           <p className="inline-flex rounded-full border border-line px-3 py-1 text-sm text-muted">
             {profile.role} · {profile.location}
           </p>
-          <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">
+          <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-foreground md:text-5xl">
             {t.hero.title}
           </h1>
           <p className="max-w-2xl text-lg leading-relaxed text-muted">{profile.summary}</p>
-          <p className="text-sm font-medium text-slate-700">{profile.availability}</p>
+          <p className="text-sm font-medium text-muted">{profile.availability}</p>
           <div className="flex flex-wrap gap-3">
             <a
               href="#proyectos"
-              className="rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-slate-700"
+              className="rounded-xl bg-foreground px-5 py-2.5 text-sm font-medium text-background transition hover:bg-foreground/80"
             >
               {t.hero.viewProjects}
             </a>
@@ -38,7 +38,7 @@ export function Hero({ projectCount, technologyCount }: HeroProps) {
               href={profile.cvUrl}
               target="_blank"
               rel="noreferrer"
-              className="rounded-xl border border-line px-5 py-2.5 text-sm font-medium text-slate-800 transition hover:bg-slate-100"
+              className="rounded-xl border border-line px-5 py-2.5 text-sm font-medium text-foreground/80 transition hover:bg-background/60"
             >
               {t.hero.downloadCV}
             </a>
@@ -46,17 +46,17 @@ export function Hero({ projectCount, technologyCount }: HeroProps) {
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          <article className="rounded-2xl border border-line bg-slate-50 p-4">
+          <article className="rounded-2xl border border-line bg-background/60 p-4">
             <p className="text-xs text-muted">{t.hero.projectsLabel}</p>
             <p className="mt-1 text-2xl font-semibold">{projectCount}+</p>
           </article>
-          <article className="rounded-2xl border border-line bg-slate-50 p-4">
+          <article className="rounded-2xl border border-line bg-background/60 p-4">
             <p className="text-xs text-muted">{t.hero.technologiesLabel}</p>
             <p className="mt-1 text-2xl font-semibold">{technologyCount}+</p>
           </article>
-          <article className="col-span-2 rounded-2xl border border-line bg-slate-50 p-4">
+          <article className="col-span-2 rounded-2xl border border-line bg-background/60 p-4">
             <p className="text-xs text-muted">{t.hero.focusLabel}</p>
-            <p className="mt-1 text-sm font-medium leading-relaxed text-slate-700">
+            <p className="mt-1 text-sm font-medium leading-relaxed text-muted">
               {t.hero.focusText}
             </p>
           </article>

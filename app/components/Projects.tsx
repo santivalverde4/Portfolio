@@ -26,19 +26,19 @@ export function Projects() {
             <div className="p-8">
               <div className="mb-4 flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-slate-900">{project.title}</h3>
+                  <h3 className="text-xl font-semibold text-foreground">{project.title}</h3>
                   <p className="mt-2 max-w-2xl text-muted">{project.description}</p>
                 </div>
               </div>
 
               <div className="mt-6 space-y-4">
                 <div>
-                  <p className="text-sm font-medium text-slate-700">{t.projects.stack}</p>
+                  <p className="text-sm font-medium text-muted">{t.projects.stack}</p>
                   <ul className="mt-2 flex flex-wrap gap-2">
                     {project.stack.map((tech) => (
                       <li
                         key={tech}
-                        className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700"
+                        className="rounded-full border border-line/70 bg-background/60 px-3 py-1 text-xs font-medium text-muted"
                       >
                         {tech}
                       </li>
@@ -47,11 +47,11 @@ export function Projects() {
                 </div>
 
                 <div>
-                  <p className="text-sm font-medium text-slate-700">{t.projects.highlights}</p>
+                  <p className="text-sm font-medium text-muted">{t.projects.highlights}</p>
                   <ul className="mt-2 space-y-2">
                     {project.highlights.map((highlight, i) => (
-                      <li key={i} className="flex gap-3 text-sm text-slate-700">
-                        <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-slate-400"></span>
+                      <li key={i} className="flex gap-3 text-sm text-muted">
+                        <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-muted"></span>
                         <span>{highlight}</span>
                       </li>
                     ))}
@@ -64,7 +64,7 @@ export function Projects() {
                   href={project.repoUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700"
+                  className="inline-flex rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition hover:bg-foreground/80"
                 >
                   {t.projects.viewRepo}
                 </a>

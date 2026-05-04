@@ -20,7 +20,7 @@ export function Footer() {
         <div className="space-y-3">
           <a
             href={`mailto:${profile.email}`}
-            className="block text-sm font-medium text-slate-700 transition hover:text-slate-900"
+            className="block text-sm font-medium text-muted transition hover:text-foreground"
           >
             ✉️ {profile.email}
           </a>
@@ -30,7 +30,7 @@ export function Footer() {
               href={link.href}
               target="_blank"
               rel="noreferrer"
-              className="block text-sm font-medium text-slate-700 transition hover:text-slate-900"
+              className="block text-sm font-medium text-muted transition hover:text-foreground"
             >
               → {link.label}
             </a>
