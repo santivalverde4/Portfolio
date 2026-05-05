@@ -1,58 +1,25 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 
-type Theme = "dark" | "light";
+type Theme = "dark";
 
 interface ThemeContextValue {
   theme: Theme;
-  setTheme: (theme: Theme) => void;
-  toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
-const THEME_KEY = "theme";
+const THEME: Theme = "dark";
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("dark");
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem(THEME_KEY);
-
-    const timeoutId = window.setTimeout(() => {
-      if (savedTheme === "light" || savedTheme === "dark") {
-        setThemeState(savedTheme);
-      }
-
-      setIsReady(true);
-    }, 0);
-
-    return () => window.clearTimeout(timeoutId);
-  }, []);
-
   useEffect(() => {
     const root = document.documentElement;
-    root.setAttribute("data-theme", theme);
-    root.style.colorScheme = theme;
-
-    if (isReady) {
-      localStorage.setItem(THEME_KEY, theme);
-    }
-  }, [isReady, theme]);
-
-  const setTheme = (nextTheme: Theme) => {
-    setThemeState(nextTheme);
-  };
-
-  const toggleTheme = () => {
-    setThemeState((previousTheme) =>
-      previousTheme === "dark" ? "light" : "dark",
-    );
-  };
+    root.setAttribute("data-theme", THEME);
+    root.style.colorScheme = THEME;
+  }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme: THEME }}>
       {children}
     </ThemeContext.Provider>
   );

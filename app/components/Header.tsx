@@ -1,24 +1,14 @@
 "use client";
 
 import { useLanguage } from "@/app/context/LanguageProvider";
-import { useTheme } from "@/app/context/ThemeProvider";
 import { translations } from "@/app/data/translations";
 import { portfolioData } from "@/app/data/portfolio-i18n";
 
 export function Header() {
   const { language, setLanguage } = useLanguage();
-  const { theme, toggleTheme } = useTheme();
   const t = translations[language];
   const data = portfolioData[language];
   const profile = data.profile;
-  const themeLabel =
-    theme === "dark"
-      ? language === "es"
-        ? "Claro"
-        : "Light"
-      : language === "es"
-        ? "Oscuro"
-        : "Dark";
 
   return (
     <header className="sticky top-4 z-20 mb-10 rounded-2xl border border-line/80 bg-surface/85 px-6 py-4 shadow-soft backdrop-blur">
@@ -43,13 +33,6 @@ export function Header() {
             {t.nav.contact}
           </a>
           <div className="flex gap-2 border-l border-line/70 pl-5">
-            <button
-              onClick={toggleTheme}
-              className="cursor-pointer rounded-lg border border-line/70 bg-[color:var(--surface-2)] px-3 py-1.5 font-medium text-muted transition duration-200 hover:text-foreground"
-              title={language === "es" ? "Cambiar tema" : "Toggle theme"}
-            >
-              {themeLabel}
-            </button>
             <button
               onClick={() => setLanguage("en")}
               className={`cursor-pointer rounded-lg px-2.5 py-1.5 font-medium transition duration-200 ${
