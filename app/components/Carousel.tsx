@@ -253,6 +253,7 @@ function CarouselContent({ children, className }: CarouselContentProps) {
   const { index, setIndex, setItemsCount, disableDrag, trackId } = useCarousel();
   const itemsLength = Children.count(children);
   const gestureStartRef = useRef<{ x: number; y: number } | null>(null);
+  const translatePercentage = itemsLength ? (index * 100) / itemsLength : 0;
 
   useEffect(() => {
     setItemsCount(itemsLength);
@@ -298,8 +299,10 @@ function CarouselContent({ children, className }: CarouselContentProps) {
           !disableDrag && "select-none",
         )}
         style={{
-          transform: `translate3d(-${index * 100}%, 0, 0)`,
+          width: itemsLength ? `${itemsLength * 100}%` : "100%",
+          transform: `translate3d(-${translatePercentage}%, 0, 0)`,
           transition: "transform 420ms cubic-bezier(0.16, 1, 0.3, 1)",
+          willChange: "transform",
         }}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
@@ -317,8 +320,15 @@ export type CarouselItemProps = {
 };
 
 function CarouselItem({ children, className }: CarouselItemProps) {
+  const { itemsCount } = useCarousel();
+
   return (
-    <div className={cn("min-w-full shrink-0 px-1 md:px-2", className)}>
+    <div
+      className={cn("shrink-0 px-1 md:px-2", className)}
+      style={{
+        width: itemsCount ? `${100 / itemsCount}%` : "100%",
+      }}
+    >
       {children}
     </div>
   );

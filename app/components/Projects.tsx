@@ -47,7 +47,7 @@ export function Projects() {
               <article
                 className={`group h-full overflow-hidden rounded-3xl border border-line bg-surface shadow-soft transition duration-300 hover:-translate-y-1 hover:border-[color:var(--accent)]/40 motion-rise motion-delay-${(index % 4) + 1}`}
               >
-                <div className="p-8">
+                <div className="p-5 sm:p-6 md:p-8">
                   <div className="mb-4 flex items-start justify-between">
                     <div className="flex-1">
                       <h3 className="font-display text-xl font-semibold text-foreground md:text-2xl">
