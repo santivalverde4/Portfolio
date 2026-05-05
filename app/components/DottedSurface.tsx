@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { useTheme } from "@/app/context/ThemeProvider";
 import { cn } from "@/lib/utils";
 
 type DottedSurfaceProps = Omit<React.ComponentProps<"div">, "ref">;
@@ -11,7 +10,6 @@ export function DottedSurface({
   className,
   ...props
 }: DottedSurfaceProps) {
-  const { theme } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -20,7 +18,6 @@ export function DottedSurface({
       return;
     }
 
-    const activeTheme = theme === "dark" ? "dark" : "light";
     const SEPARATION = 150;
     const AMOUNTX = 40;
     const AMOUNTY = 60;
@@ -28,7 +25,7 @@ export function DottedSurface({
     const height = container.clientHeight || window.innerHeight;
 
     const scene = new THREE.Scene();
-    const fogColor = activeTheme === "dark" ? 0x050505 : 0x080808;
+    const fogColor = 0x050505;
     scene.fog = new THREE.Fog(fogColor, 2000, 10000);
 
     const camera = new THREE.PerspectiveCamera(60, width / height, 1, 10000);
@@ -48,10 +45,7 @@ export function DottedSurface({
     const positions: number[] = [];
     const colors: number[] = [];
 
-    const pointColor =
-      activeTheme === "dark"
-        ? new THREE.Color(0.97, 0.97, 0.97)
-        : new THREE.Color(0.93, 0.93, 0.93);
+    const pointColor = new THREE.Color(0.97, 0.97, 0.97);
 
     for (let ix = 0; ix < AMOUNTX; ix++) {
       for (let iy = 0; iy < AMOUNTY; iy++) {
@@ -74,7 +68,7 @@ export function DottedSurface({
       size: 8.5,
       vertexColors: true,
       transparent: true,
-      opacity: activeTheme === "dark" ? 0.74 : 0.62,
+      opacity: 0.74,
       sizeAttenuation: true,
     });
 
@@ -130,7 +124,7 @@ export function DottedSurface({
         container.removeChild(renderer.domElement);
       }
     };
-  }, [theme]);
+  }, []);
 
   return (
     <div

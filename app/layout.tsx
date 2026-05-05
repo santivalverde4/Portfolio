@@ -3,7 +3,6 @@ import { JetBrains_Mono, Playfair_Display, Source_Serif_4 } from "next/font/goog
 import "./globals.css";
 import { DottedSurface } from "@/app/components/DottedSurface";
 import { LanguageProvider } from "@/app/context/LanguageProvider";
-import { ThemeProvider } from "@/app/context/ThemeProvider";
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-display",
@@ -39,14 +38,12 @@ export default function RootLayout({
       data-theme="dark"
     >
       <body className="min-h-full">
-        <ThemeProvider>
-          <div className="relative flex min-h-full flex-col overflow-x-hidden">
-            <DottedSurface className="opacity-90" />
-            <div className="relative z-10 flex min-h-full flex-col">
-              <LanguageProvider>{children}</LanguageProvider>
-            </div>
+        <div className="relative flex min-h-full flex-col overflow-x-hidden">
+          <DottedSurface className="opacity-90" />
+          <div className="relative z-10 flex min-h-full flex-col">
+            <LanguageProvider>{children}</LanguageProvider>
           </div>
-        </ThemeProvider>
+        </div>
       </body>
     </html>
   );
