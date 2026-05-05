@@ -120,17 +120,6 @@ export function Projects() {
                     </div>
 
                     <div className="mt-8 flex flex-wrap gap-3">
-                      {project.demoUrl && (
-                        <a
-                          href={project.demoUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex cursor-pointer items-center gap-3 rounded-xl border border-line px-4 py-2.5 text-sm font-semibold text-foreground transition duration-200 hover:border-[color:var(--accent)]/35 hover:bg-[color:var(--surface-2)]"
-                        >
-                          {t.projects.viewDemo}
-                          <ArrowUpRightIcon />
-                        </a>
-                      )}
                       <a
                         href={project.repoUrl}
                         target="_blank"
