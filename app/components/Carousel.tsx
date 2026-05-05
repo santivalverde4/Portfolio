@@ -252,7 +252,14 @@ export type CarouselContentProps = {
 function CarouselContent({ children, className }: CarouselContentProps) {
   const { index, setIndex, setItemsCount, disableDrag, trackId } = useCarousel();
   const itemsLength = Children.count(children);
-  const gestureStartRef = useRef<{ x: number; y: number } | null>(null);
+  const gestureStartRef = useRef<
+    | {
+        x: number;
+        y: number;
+        intent: "pending" | "horizontal" | "vertical";
+      }
+    | null
+  >(null);
   const translatePercentage = itemsLength ? (index * 100) / itemsLength : 0;
 
   useEffect(() => {
@@ -264,8 +271,37 @@ function CarouselContent({ children, className }: CarouselContentProps) {
       return;
     }
 
-    gestureStartRef.current = { x: event.clientX, y: event.clientY };
-    event.currentTarget.setPointerCapture(event.pointerId);
+    gestureStartRef.current = { x: event.clientX, y: event.clientY, intent: "pending" };
+  };
+
+  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (disableDrag || !gestureStartRef.current) {
+      return;
+    }
+
+    const deltaX = event.clientX - gestureStartRef.current.x;
+    const deltaY = event.clientY - gestureStartRef.current.y;
+
+    if (gestureStartRef.current.intent === "pending") {
+      if (Math.abs(deltaX) < 8 && Math.abs(deltaY) < 8) {
+        return;
+      }
+
+      if (Math.abs(deltaY) > Math.abs(deltaX)) {
+        gestureStartRef.current.intent = "vertical";
+        return;
+      }
+
+      gestureStartRef.current.intent = "horizontal";
+
+      if (!event.currentTarget.hasPointerCapture(event.pointerId)) {
+        event.currentTarget.setPointerCapture(event.pointerId);
+      }
+    }
+
+    if (gestureStartRef.current.intent === "horizontal") {
+      event.preventDefault();
+    }
   };
 
   const handlePointerUp = (event: PointerEvent<HTMLDivElement>) => {
@@ -275,16 +311,26 @@ function CarouselContent({ children, className }: CarouselContentProps) {
 
     const deltaX = event.clientX - gestureStartRef.current.x;
     const deltaY = event.clientY - gestureStartRef.current.y;
+    const intent = gestureStartRef.current.intent;
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
     gestureStartRef.current = null;
 
-    if (Math.abs(deltaX) <= Math.abs(deltaY) || Math.abs(deltaX) < 40) {
+    if (intent !== "horizontal" || Math.abs(deltaX) <= Math.abs(deltaY) || Math.abs(deltaX) < 40) {
       return;
     }
 
     setIndex(index + (deltaX < 0 ? 1 : -1));
   };
 
-  const handlePointerCancel = () => {
+  const handlePointerCancel = (event?: PointerEvent<HTMLDivElement>) => {
+    if (event && event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
     gestureStartRef.current = null;
   };
 
@@ -299,14 +345,17 @@ function CarouselContent({ children, className }: CarouselContentProps) {
           !disableDrag && "select-none",
         )}
         style={{
+          touchAction: disableDrag ? "auto" : "pan-y pinch-zoom",
           width: itemsLength ? `${itemsLength * 100}%` : "100%",
           transform: `translate3d(-${translatePercentage}%, 0, 0)`,
           transition: "transform 420ms cubic-bezier(0.16, 1, 0.3, 1)",
           willChange: "transform",
         }}
         onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerCancel}
+        onLostPointerCapture={handlePointerCancel}
       >
         {children}
       </div>

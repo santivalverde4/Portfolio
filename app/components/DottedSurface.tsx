@@ -17,9 +17,12 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
     }
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const SEPARATION = 150;
-    const AMOUNTX = 40;
-    const AMOUNTY = 60;
+    const mobileMode =
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.matchMedia("(max-width: 768px)").matches;
+    const SEPARATION = mobileMode ? 180 : 150;
+    const AMOUNTX = mobileMode ? 22 : 40;
+    const AMOUNTY = mobileMode ? 32 : 60;
     const width = container.clientWidth || window.innerWidth;
     const height = container.clientHeight || window.innerHeight;
 
@@ -33,9 +36,10 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: true,
+      antialias: !mobileMode,
+      powerPreference: mobileMode ? "low-power" : "high-performance",
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobileMode ? 1 : 2));
     renderer.setSize(width, height);
     renderer.setClearColor(fogColor, 0);
 
@@ -75,10 +79,10 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
     geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-      size: 8,
+      size: mobileMode ? 6.2 : 8,
       vertexColors: true,
       transparent: true,
-      opacity: 0.72,
+      opacity: mobileMode ? 0.5 : 0.72,
       sizeAttenuation: true,
     });
 
@@ -99,20 +103,21 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
       pointerTarget.y = 0;
     };
 
-    if (!reducedMotion) {
+    if (!reducedMotion && !mobileMode) {
       window.addEventListener("mousemove", handlePointerMove);
       window.addEventListener("mouseleave", handlePointerLeave);
     }
 
     let count = 0;
     let animationId = 0;
+    let lastFrameTime = 0;
 
-    const renderFrame = () => {
+    const renderFrame = (time = 0) => {
       const positionAttribute = geometry.attributes.position;
       const positionArray = positionAttribute.array as Float32Array;
 
-      pointerCurrent.x += (pointerTarget.x - pointerCurrent.x) * 0.04;
-      pointerCurrent.y += (pointerTarget.y - pointerCurrent.y) * 0.04;
+      pointerCurrent.x += (pointerTarget.x - pointerCurrent.x) * (mobileMode ? 0.025 : 0.04);
+      pointerCurrent.y += (pointerTarget.y - pointerCurrent.y) * (mobileMode ? 0.025 : 0.04);
 
       let i = 0;
       for (let ix = 0; ix < AMOUNTX; ix++) {
@@ -121,32 +126,40 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
           const baseX = basePositions[index];
           const baseZ = basePositions[index + 2];
           const wave =
-            Math.sin((ix + count) * 0.32) * 38 +
-            Math.sin((iy + count) * 0.46) * 38;
+            Math.sin((ix + count) * 0.32) * (mobileMode ? 24 : 38) +
+            Math.sin((iy + count) * 0.46) * (mobileMode ? 24 : 38);
           const ripple =
-            Math.sin(baseX * 0.00085 + count * 0.6) * 18 +
-            Math.cos(baseZ * 0.00115 - count * 0.48) * 12;
+            Math.sin(baseX * 0.00085 + count * 0.6) * (mobileMode ? 10 : 18) +
+            Math.cos(baseZ * 0.00115 - count * 0.48) * (mobileMode ? 8 : 12);
 
-          positionArray[index] = baseX + pointerCurrent.x * (iy - AMOUNTY / 2) * 3.4;
+          positionArray[index] =
+            baseX + pointerCurrent.x * (iy - AMOUNTY / 2) * (mobileMode ? 1.6 : 3.4);
           positionArray[index + 1] = wave + ripple;
-          positionArray[index + 2] = baseZ + pointerCurrent.y * (ix - AMOUNTX / 2) * 4.2;
+          positionArray[index + 2] =
+            baseZ + pointerCurrent.y * (ix - AMOUNTX / 2) * (mobileMode ? 2.1 : 4.2);
           i += 1;
         }
       }
 
-      points.rotation.z = pointerCurrent.x * 0.08;
-      camera.position.x = pointerCurrent.x * 180;
-      camera.position.y = 355 + pointerCurrent.y * 90;
+      points.rotation.z = pointerCurrent.x * (mobileMode ? 0.03 : 0.08);
+      camera.position.x = pointerCurrent.x * (mobileMode ? 56 : 180);
+      camera.position.y = 355 + pointerCurrent.y * (mobileMode ? 28 : 90);
       camera.lookAt(0, 0, 0);
 
       positionAttribute.needsUpdate = true;
       renderer.render(scene, camera);
-      count += 0.09;
+      count += mobileMode ? 0.045 : 0.09;
+      lastFrameTime = time;
     };
 
-    const animate = () => {
+    const animate = (time: number) => {
       animationId = window.requestAnimationFrame(animate);
-      renderFrame();
+
+      if (mobileMode && time - lastFrameTime < 1000 / 24) {
+        return;
+      }
+
+      renderFrame(time);
     };
 
     const handleResize = () => {
@@ -156,15 +169,15 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
       camera.aspect = nextWidth / nextHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(nextWidth, nextHeight);
-      renderFrame();
+      renderFrame(performance.now());
     };
 
     window.addEventListener("resize", handleResize);
 
     if (reducedMotion) {
-      renderFrame();
+      renderFrame(performance.now());
     } else {
-      animate();
+      animate(performance.now());
     }
 
     return () => {

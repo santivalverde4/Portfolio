@@ -8,7 +8,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function PageMotion() {
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const mobileMotion =
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.matchMedia("(max-width: 768px)").matches;
+
+    if (reducedMotion) {
       return;
     }
 
@@ -70,23 +75,25 @@ export function PageMotion() {
           );
         });
 
-      gsap.utils
-        .toArray<HTMLElement>("[data-parallax='soft']")
-        .forEach((element) => {
-          const trigger = element.closest<HTMLElement>("[data-parallax-scope]") ?? element;
+      if (!mobileMotion) {
+        gsap.utils
+          .toArray<HTMLElement>("[data-parallax='soft']")
+          .forEach((element) => {
+            const trigger = element.closest<HTMLElement>("[data-parallax-scope]") ?? element;
 
-          gsap.to(element, {
-            yPercent: -10,
-            xPercent: 2,
-            ease: "none",
-            scrollTrigger: {
-              trigger,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1.1,
-            },
+            gsap.to(element, {
+              yPercent: -10,
+              xPercent: 2,
+              ease: "none",
+              scrollTrigger: {
+                trigger,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1.1,
+              },
+            });
           });
-        });
+      }
     });
 
     return () => ctx.revert();
