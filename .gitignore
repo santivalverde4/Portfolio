@@ -52,8 +52,10 @@ coverage/
 
 # Misc
 *.pem
-*.lock
 .cache/
+
+# TypeScript
+*.tsbuildinfo
 
 # Portfolio specific
 CV.txt

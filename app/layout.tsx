@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { JetBrains_Mono, Playfair_Display, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
+import { DottedSurface } from "@/app/components/DottedSurface";
 import { LanguageProvider } from "@/app/context/LanguageProvider";
 import { ThemeProvider } from "@/app/context/ThemeProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const playfairDisplay = Playfair_Display({
+  variable: "--font-display",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const sourceSerif = Source_Serif_4({
+  variable: "--font-body",
+  subsets: ["latin"],
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
 });
 
@@ -28,12 +34,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${playfairDisplay.variable} ${sourceSerif.variable} ${jetBrainsMono.variable} h-full antialiased`}
+      suppressHydrationWarning
       data-theme="dark"
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full">
         <ThemeProvider>
-          <LanguageProvider>{children}</LanguageProvider>
+          <div className="relative flex min-h-full flex-col overflow-x-hidden">
+            <DottedSurface className="opacity-90" />
+            <div className="relative z-10 flex min-h-full flex-col">
+              <LanguageProvider>{children}</LanguageProvider>
+            </div>
+          </div>
         </ThemeProvider>
       </body>
     </html>

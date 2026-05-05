@@ -14,10 +14,13 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>("en");
 
   useEffect(() => {
-    // Obtener idioma del localStorage o usar "en" por defecto
     const savedLanguage = localStorage.getItem("language") as Language | null;
     if (savedLanguage) {
-      setLanguageState(savedLanguage);
+      const timeoutId = window.setTimeout(() => {
+        setLanguageState(savedLanguage);
+      }, 0);
+
+      return () => window.clearTimeout(timeoutId);
     }
   }, []);
 
@@ -26,7 +29,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("language", lang);
   };
 
-  // Siempre proporcionar el contexto (evita hydration mismatch)
   return (
     <LanguageContext.Provider value={{ language, setLanguage }}>
       {children}

@@ -1,6 +1,7 @@
 import { portfolioData } from "@/app/data/portfolio-i18n";
 import { Header } from "@/app/components/Header";
 import { Hero } from "@/app/components/Hero";
+import { ExperienceFlow } from "@/app/components/ExperienceFlow";
 import { TechStack } from "@/app/components/TechStack";
 import { Projects } from "@/app/components/Projects";
 import { Footer } from "@/app/components/Footer";
@@ -20,11 +21,12 @@ export default function Home() {
   );
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-6 py-8 text-foreground md:px-10 lg:px-14">
+    <div className="mx-auto w-full max-w-6xl px-6 py-10 text-foreground md:px-10 lg:px-14">
       <Header />
 
-      <main className="space-y-14 pb-14">
+      <main className="space-y-16 pb-16">
         <Hero projectCount={projectCount} technologyCount={technologyCount} />
+        <ExperienceFlow />
         <TechStack />
         <Projects />
       </main>
