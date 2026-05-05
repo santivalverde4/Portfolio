@@ -281,26 +281,32 @@ function CarouselContent({ children, className }: CarouselContentProps) {
 
     const deltaX = event.clientX - gestureStartRef.current.x;
     const deltaY = event.clientY - gestureStartRef.current.y;
+    const absDeltaX = Math.abs(deltaX);
+    const absDeltaY = Math.abs(deltaY);
 
     if (gestureStartRef.current.intent === "pending") {
-      if (Math.abs(deltaX) < 8 && Math.abs(deltaY) < 8) {
+      if (absDeltaX < 12 && absDeltaY < 12) {
         return;
       }
 
-      if (Math.abs(deltaY) > Math.abs(deltaX)) {
+      const INTENT_RATIO = 1.25;
+
+      if (absDeltaY > absDeltaX * INTENT_RATIO) {
         gestureStartRef.current.intent = "vertical";
         return;
       }
 
-      gestureStartRef.current.intent = "horizontal";
+      if (absDeltaX > absDeltaY * INTENT_RATIO) {
+        gestureStartRef.current.intent = "horizontal";
 
-      if (!event.currentTarget.hasPointerCapture(event.pointerId)) {
-        event.currentTarget.setPointerCapture(event.pointerId);
+        if (!event.currentTarget.hasPointerCapture(event.pointerId)) {
+          event.currentTarget.setPointerCapture(event.pointerId);
+        }
+
+        return;
       }
-    }
 
-    if (gestureStartRef.current.intent === "horizontal") {
-      event.preventDefault();
+      return;
     }
   };
 

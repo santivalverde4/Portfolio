@@ -13,7 +13,7 @@ export function PageMotion() {
       window.matchMedia("(pointer: coarse)").matches ||
       window.matchMedia("(max-width: 768px)").matches;
 
-    if (reducedMotion) {
+    if (reducedMotion || mobileMotion) {
       return;
     }
 
