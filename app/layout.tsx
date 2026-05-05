@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { JetBrains_Mono, Playfair_Display, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import { DottedSurface } from "@/app/components/DottedSurface";
+import { PageMotion } from "@/app/components/PageMotion";
 import { LanguageProvider } from "@/app/context/LanguageProvider";
 
 const playfairDisplay = Playfair_Display({
@@ -39,6 +40,7 @@ export default function RootLayout({
     >
       <body className="min-h-full">
         <div className="relative flex min-h-full flex-col overflow-x-hidden">
+          <PageMotion />
           <DottedSurface className="opacity-90" />
           <div className="relative z-10 flex min-h-full flex-col">
             <LanguageProvider>{children}</LanguageProvider>
