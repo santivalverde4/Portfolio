@@ -2,6 +2,8 @@ import { Profile, Project, TechGroup, SocialLink } from "@/app/types/portfolio";
 
 export type Language = "es" | "en";
 
+const cvUrl = process.env.NEXT_PUBLIC_CV_URL ?? "";
+
 export const portfolioData: Record<Language, { profile: Profile; techGroups: TechGroup[]; projects: Project[] }> = {
   en: {
     profile: {
@@ -12,7 +14,7 @@ export const portfolioData: Record<Language, { profile: Profile; techGroups: Tec
         "Computer Engineering student with proficiency in full-stack development and system architecture. Experienced in building scalable APIs, designing structured applications, and implementing accessibility standards. Strong interest in artificial intelligence and modern software engineering, with a focus on developing reliable and production-ready solutions.",
       availability: "Available for part-time internships.",
       email: "s.valverde04@gmail.com",
-      cvUrl: "https://drive.google.com/file/d/13d18HViCOy-AwfCbNqo-Bf8WBewxcWcd/view?usp=sharing",
+      cvUrl,
       socialLinks: [
         {
           label: "LinkedIn",
@@ -114,7 +116,7 @@ export const portfolioData: Record<Language, { profile: Profile; techGroups: Tec
         "Estudiante de Ingeniería en Computación con dominio en desarrollo full-stack y arquitectura de sistemas. Experiencia en construcción de APIs escalables, diseño de aplicaciones estructuradas e implementación de estándares de accesibilidad. Fuerte interés en inteligencia artificial e ingeniería de software moderna, con enfoque en desarrollar soluciones confiables y listas para producción.",
       availability: "Disponible para prácticas a tiempo parcial.",
       email: "s.valverde04@gmail.com",
-      cvUrl: "https://drive.google.com/file/d/13d18HViCOy-AwfCbNqo-Bf8WBewxcWcd/view?usp=sharing",
+      cvUrl,
       socialLinks: [
         {
           label: "LinkedIn",

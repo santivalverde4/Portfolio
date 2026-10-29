@@ -43,11 +43,16 @@ cd portfolio-web
 # Instalar dependencias
 npm install
 
+# Configurar variables de entorno
+cp .env.example .env.local
+
 # Ejecutar servidor de desarrollo
 npm run dev
 ```
 
 Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+
+Configura `NEXT_PUBLIC_CV_URL` en `.env.local` con el enlace público de tu CV.
 
 ## Personalizacion
 
